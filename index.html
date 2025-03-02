@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Automation for Hotels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles */
+    :root {
+      --primary-dark: #0D1B2A;
+      --secondary-dark: #1B263B;
+      --accent-light: #778DA9;
+      --accent-lighter: #9FB3C8;
+      --text-white: #F8F9FA;
+      --text-light: #E0E1DD;
+      --glow-color: rgba(159, 179, 200, 0.5);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--primary-dark);
+      color: var(--text-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    a {
+      color: var(--accent-light);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--accent-lighter);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(13, 27, 42, 0.9);
+      backdrop-filter: blur(15px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .logo .digital {
+      color: var(--text-white);
+    }
+
+    .navbar .logo .mind {
+      background: linear-gradient(90deg, #778DA9, #9FB3C8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-left: 5px;
+    }
+
+    .navbar .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .navbar .nav-links a {
+      color: var(--text-white);
+      font-size: 1rem;
+      font-weight: 500;
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .navbar .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(90deg, var(--accent-light), var(--accent-lighter));
+      transition: width 0.3s ease;
+    }
+
+    .navbar .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .navbar .chat-button {
+      background: linear-gradient(90deg, var(--accent-light), var(--accent-lighter));
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--primary-dark);
+      cursor: pointer;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(119, 141, 169, 0.3);
+    }
+
+    .navbar .chat-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(119, 141, 169, 0.5);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 180px 20px 120px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 20%, rgba(159, 179, 200, 0.15), rgba(13, 27, 42, 0.5)), 
+                  linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, #2d3f5c 100%);
+      z-index: -1;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239FB3C8' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      z-index: -1;
+      opacity: 0.5;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 30px;
+      background: linear-gradient(45deg, var(--text-white), var(--accent-lighter));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 50px;
+      color: var(--text-light);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 300;
+    }
+
+    .cta {
+      background: linear-gradient(45deg, var(--accent-light), var(--accent-lighter));
+      border: none;
+      padding: 15px 35px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--primary-dark);
+      cursor: pointer;
+      border-radius: 50px;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 25px rgba(119, 141, 169, 0.4);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-lighter), #bfccdb);
+      transition: all 0.5s ease;
+      z-index: -1;
+      border-radius: 50px;
+    }
+
+    .cta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(119, 141, 169, 0.6);
+    }
+
+    .cta:hover::before {
+      width: 100%;
+    }
+
+    /* Services Section */
+    .services-title {
+      text-align: center;
+      margin: 60px 0 40px;
+      font-size: 2.5rem;
+      background: linear-gradient(45deg, var(--text-white), var(--accent-lighter));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 0 40px 80px;
+    }
+
+    .service-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 280px;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 70%);
+      top: -25%;
+      left: -25%;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .service-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .service-card:hover::before {
+      opacity: 0.8;
+    }
+
+    .service-card i {
+      font-size: 3rem;
+      margin-bottom: 25px;
+      background: linear-gradient(45deg, var(--accent-light), var(--accent-lighter));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 5px rgba(119, 141, 169, 0.4));
+    }
+
+    .service-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .service-card h3::after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-light), transparent);
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50px;
+    }
+
+    .service-card p {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--primary-dark);
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    footer p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+      }
+
+      .navbar .nav-links {
+        gap: 15px;
+        margin: 15px 0;
+        order: 3;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero {
+        padding: 120px 20px 80px;
+      }
+
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .services-title {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .navbar .chat-button {
+        width: 100%;
+        order: 2;
+      }
+
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .services {
+        padding: 0 20px 60px;
+      }
+    }
+
+    /* Animations */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .cta {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .service-card {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .service-card:nth-child(1) { animation-delay: 0.2s; }
+    .service-card:nth-child(2) { animation-delay: 0.4s; }
+    .service-card:nth-child(3) { animation-delay: 0.6s; }
+    .service-card:nth-child(4) { animation-delay: 0.8s; }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <span class="digital">Digital</span>
+      <span class="mind">Mind</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+    </div>
+    <button class="chat-button">Chat with Support</button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Transform Your Hotel Experience with AI-Powered Automation</h1>
+      <p>Elevate guest satisfaction, streamline operations, and maximize revenue with our innovative AI solutions designed specifically for the hospitality industry.</p>
+      <button class="cta">Schedule Your Free Demo</button>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <h2 class="services-title">Our Solutions</h2>
+  <section class="services">
+    <div class="service-card">
+      <i>🤖</i>
+      <h3>AI Chatbots</h3>
+      <p>24/7 guest support, booking management, and FAQs.</p>
+    </div>
+    <div class="service-card">
+      <i>📊</i>
+      <h3>Lead Generation</h3>
+      <p>Identify and prioritize high-quality leads for your hotel.</p>
+    </div>
+    <div class="service-card">
+      <i>📅</i>
+      <h3>Appointment Scheduling</h3>
+      <p>Automate bookings for amenities, restaurants with real-time availability.</p>
+    </div>
+    <div class="service-card">
+      <i>⚡</i>
+      <h3>Operational Efficiency</h3>
+      <p>Streamline workflows, automate routine tasks, and enhance service.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 DigitalMind AI Solutions</p>
+  </footer>
+</body>
+</html>
