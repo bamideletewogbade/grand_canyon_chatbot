@@ -441,7 +441,7 @@
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
     </div>
-    <button class="chat-button">Chat with Support</button>
+    <!-- <button class="chat-button">Chat with Support</button> -->
   </nav>
 
   <!-- Hero Section -->
@@ -449,7 +449,7 @@
     <div class="container">
       <h1>Transform Your Hotel Experience with AI-Powered Automation</h1>
       <p>Elevate guest satisfaction, streamline operations, and maximize revenue with our innovative AI solutions designed specifically for the hospitality industry.</p>
-      <button class="cta">Schedule Your Free Demo</button>
+      <!-- <button class="cta">Schedule Your Free Demo</button> -->
     </div>
   </section>
 
@@ -482,5 +482,21 @@
   <footer>
     <p>&copy; 2025 DigitalMind AI Solutions</p>
   </footer>
+  <script type="text/javascript">
+    (function(d, t) {
+        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        v.onload = function() {
+          window.voiceflow.chat.load({
+            verify: { projectID: '67c26d2db20e19cdb7e902ab' },
+            url: 'https://general-runtime.voiceflow.com',
+            versionID: 'production', 
+            voice: { 
+              url: "https://runtime-api.voiceflow.com" 
+            }
+          });
+        }
+        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
 </body>
 </html>
